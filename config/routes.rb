@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-    root 'application#hello'
+    post '/callback', to: 'line_bots#callback'
 end
