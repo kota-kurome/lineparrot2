@@ -36,7 +36,8 @@ class LinebotController < ApplicationController
           when Line::Bot::Event::Message
             case event.type
             when Line::Bot::Event::MessageType::Text
-              if(rand(1)==0)
+
+              
                 reply_content(event,{
                   type: "template",
                   altText: "this is a confirm template",
@@ -57,7 +58,7 @@ class LinebotController < ApplicationController
                     ]
                   }
                 })
-              else
+=begin
                 reply_content(event,{
                   type: "template",
                   altText: "this is a confirm template",
@@ -78,9 +79,8 @@ class LinebotController < ApplicationController
                       ]
                   }
                 })
-              end
+              
 
-=begin
               message = {
                 type: 'text',
                 text: event.message['text']
