@@ -12,6 +12,15 @@ class LinebotController < ApplicationController
         }
     end
 
+    def reply_content(event, messages)
+      res = client.reply_message(
+        event['replyToken'],
+        messages
+      )
+      logger.warn res.read_body unless Net::HTTPOK === res
+      res
+    end
+
     def callback
         body = request.body.read
 
@@ -27,7 +36,7 @@ class LinebotController < ApplicationController
           when Line::Bot::Event::Message
             case event.type
             when Line::Bot::Event::MessageType::Text
-              message{
+              reply_content(event,{
                 type: "template",
                 altText: "this is a confirm template",
                 template: {
@@ -46,7 +55,7 @@ class LinebotController < ApplicationController
                         }
                     ]
                 }
-              }
+              })
 =begin
               message = {
                 type: 'text',
@@ -55,7 +64,7 @@ class LinebotController < ApplicationController
 =end
             end
           end
-          client.reply_message(event['replyToken'], message)
+          #client.reply_message(event['replyToken'], message)
         end
         head :ok
     end
