@@ -36,26 +36,50 @@ class LinebotController < ApplicationController
           when Line::Bot::Event::Message
             case event.type
             when Line::Bot::Event::MessageType::Text
-              reply_content(event,{
-                type: "template",
-                altText: "this is a confirm template",
-                template: {
-                    type: "confirm",
-                    text: "あとさきかんがえずにしゃべってしまうほう？",
-                    actions: [
-                        {
-                          type: "message",
-                          label: "はい",
-                          text: "君はうっかりや"
-                        },
-                        {
-                          type: "message",
-                          label: "いいえ",
-                          text: "君はがんばりや"
-                        }
+              if(rand(1)==0)
+                reply_content(event,{
+                  type: "template",
+                  altText: "this is a confirm template",
+                  template: {
+                      type: "confirm",
+                      text: "あとさきかんがえずにしゃべってしまうほう？",
+                      actions: [
+                          {
+                            type: "message",
+                            label: "はい",
+                            text: "君はうっかりや"
+                          },
+                          {
+                            type: "message",
+                            label: "いいえ",
+                            text: "君はがんばりや"
+                          }
                     ]
-                }
-              })
+                  }
+                })
+              else
+                reply_content(event,{
+                  type: "template",
+                  altText: "this is a confirm template",
+                  template: {
+                      type: "confirm",
+                      text: "いつもみんなより一歩先を歩いていたい？",
+                      actions: [
+                          {
+                            type: "message",
+                            label: "はい",
+                            text: "君はなまいき"
+                          },
+                          {
+                            type: "message",
+                            label: "いいえ",
+                            text: "君はおだやか"
+                          }
+                      ]
+                  }
+                })
+              end
+
 =begin
               message = {
                 type: 'text',
