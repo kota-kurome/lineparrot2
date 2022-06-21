@@ -19,7 +19,7 @@ class LinebotController < ApplicationController
         unless client.validate_signature(body, signature)
           error 400 do 'Bad Request' end
         end
-        
+
         events = client.parse_events_from(body)
     
         events.each do |event|
@@ -27,10 +27,33 @@ class LinebotController < ApplicationController
           when Line::Bot::Event::Message
             case event.type
             when Line::Bot::Event::MessageType::Text
+              message{
+                "type": "template",
+                "altText": "this is a confirm template",
+                "template": {
+                    "type": "confirm",
+                    "text": "あとさきかんがえずに
+                    しゃべってしまうほう？",
+                    "actions": [
+                        {
+                          "type": "message",
+                          "label": "はい",
+                          "text": "君はうっかりや"
+                        },
+                        {
+                          "type": "message",
+                          "label": "いいえ",
+                          "text": "君はがんばりや"
+                        }
+                    ]
+                }
+              }
+=begin
               message = {
                 type: 'text',
                 text: event.message['text']
               }
+=end
             end
           end
           client.reply_message(event['replyToken'], message)
