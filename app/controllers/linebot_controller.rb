@@ -28,22 +28,21 @@ class LinebotController < ApplicationController
             case event.type
             when Line::Bot::Event::MessageType::Text
               message{
-                "type": "template",
-                "altText": "this is a confirm template",
-                "template": {
-                    "type": "confirm",
-                    "text": "あとさきかんがえずに
-                    しゃべってしまうほう？",
-                    "actions": [
+                type: "template",
+                altText: "this is a confirm template",
+                template: {
+                    type: "confirm",
+                    text: "あとさきかんがえずにしゃべってしまうほう？",
+                    actions: [
                         {
-                          "type": "message",
-                          "label": "はい",
-                          "text": "君はうっかりや"
+                          type: "message",
+                          label: "はい",
+                          text: "君はうっかりや"
                         },
                         {
-                          "type": "message",
-                          "label": "いいえ",
-                          "text": "君はがんばりや"
+                          type: "message",
+                          label: "いいえ",
+                          text: "君はがんばりや"
                         }
                     ]
                 }
